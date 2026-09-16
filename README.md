@@ -2,14 +2,13 @@
 
 ## 项目简介
 
-VocaLink 是一款面向 Windows 的情感感知虚拟歌手桌面伴侣程序，整合 Live2D 桌面角色、情感对话、本地 GPT-SoVITS 语音合成、本地音乐播放和 ACE Studio 自动化，为用户提供对话、语音生成及歌唱准备的一体化交互体验。
+VocaLink 是一款面向 Windows 的情感感知虚拟歌手桌面陪伴系统，整合 Live2D 桌面角色、LLM、本地 GPT-SoVITS 语音合成、本地音乐播放和 ACE Studio 自动化，为用户提供对话、语音生成及ACE Studio工程自动化准备的一体化交互体验。
 
 ## 技术栈
 
-- **桌面开发：** C#、XAML、WPF、.NET 10
-- **角色渲染：** WebView2、Live2D Web Runtime
-- **智能对话：** Qwen API
-- **语音合成：** Python、FastAPI、GPT-SoVITS
+- **桌面开发：** C# + WPF
+- **角色渲染：** WebView2
+- **语音合成：** Python、GPT-SoVITS
 - **音频处理：** NAudio
 - **数据存储：** SQLite
 
@@ -21,7 +20,7 @@ VocaLink 是一款面向 Windows 的情感感知虚拟歌手桌面伴侣程序�
 - [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0)
 - [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/)
 - [Python 3.10.11（64 位）](https://www.python.org/downloads/release/python-31011/)
-- ACE Studio，仅使用 Sing 模式时需要
+- ACE Studio（仅使用 Sing 模式时需要）
 
 ### 运行发布版本
 
