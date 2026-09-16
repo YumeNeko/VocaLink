@@ -64,4 +64,5 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1
 ### 资源声明
 
 项目Live2D资源使用了火爆鸡王发布的洛天依Live2D模型，该模型为非商业用途免费使用，详情可见https://www.bilibili.com/video/BV1Bk88eDEoK
+
 项目LLM训练素材使用了发布在洛天依官号上的音频素材
