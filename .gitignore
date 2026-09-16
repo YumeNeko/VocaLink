@@ -1,0 +1,63 @@
+# .NET build outputs
+**/bin/
+**/obj/
+.vs/
+.local-appdata/
+*.lnk
+*.user
+*.suo
+
+# Local data and runtime artifacts
+*.db
+*.db-shm
+*.db-wal
+logs/
+generated/
+Data/
+Sing/Music/*
+Sing/Projects/
+Chat/Output/
+Chat/Voice/
+src/TTS/Models/
+tts-load-error.log
+tts-load-response.json
+vocalink-before-pet-ui.db
+
+# Secrets and local configuration
+.env
+.env.*
+appsettings.local.json
+secrets.json
+config.local.json
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Models, reference audio, and restricted assets
+*.ckpt
+*.pth
+*.safetensors
+reference_audio/
+
+# Local publish output is distributed through GitHub Releases, not source control
+/bin/
+.publish-temp/
+.publish-backup/
+.release-staging/
+/release/
+Project Build.md
+/tests/
+
+# ACE Studio autosave files
+ACE Template/autosave/
+Data/ACE Template/autosave/
+
+# Editor and system files
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

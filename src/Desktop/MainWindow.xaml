@@ -1,0 +1,51 @@
+<Window x:Class="VocaLink.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:live2d="clr-namespace:VocaLink.Live2D;assembly=Live2D"
+        Title="VocaLink"
+        Width="210"
+        Height="260"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
+    <Grid Background="Transparent">
+        <live2d:Live2DView x:Name="CharacterView"
+                           CharacterClicked="CharacterView_CharacterClicked"
+                           PreviewMouseLeftButtonDown="CharacterView_PreviewMouseLeftButtonDown"
+                           PreviewMouseMove="CharacterView_PreviewMouseMove"
+                           PreviewMouseLeftButtonUp="CharacterView_PreviewMouseLeftButtonUp"
+                           PreviewMouseRightButtonUp="CharacterView_PreviewMouseRightButtonUp"
+                           LostMouseCapture="CharacterView_LostMouseCapture" />
+
+        <Popup x:Name="ModePopup"
+               Placement="MousePoint"
+               AllowsTransparency="True"
+               StaysOpen="False"
+               PopupAnimation="Fade">
+            <Border Padding="5"
+                    Background="#ED172235"
+                    BorderBrush="#4B7795"
+                    BorderThickness="1"
+                    CornerRadius="10">
+                <StackPanel Width="78">
+                    <Button x:Name="ChatMenuButton"
+                             Height="30"
+                             Margin="0,0,0,5"
+                             Padding="4,0"
+                             FontSize="12"
+                             Click="ChatMenuButton_Click" />
+                    <Button x:Name="SingingMenuButton"
+                             Height="30"
+                             Padding="4,0"
+                             FontSize="12"
+                             Click="SingingMenuButton_Click" />
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

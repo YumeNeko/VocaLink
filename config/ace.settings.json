@@ -1,0 +1,7 @@
+{
+  "ExecutablePath": "C:\\Program Files\\ACE Studio\\ACE Studio.exe",
+  "CliPath": "C:\\Program Files\\ACE Studio\\acestudio-cli.exe",
+  "SingerName": "洛天依",
+  "TaskTimeoutMinutes": 30,
+  "PollIntervalMilliseconds": 2000
+}

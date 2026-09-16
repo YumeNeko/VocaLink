@@ -1,0 +1,9 @@
+{
+  "Qwen": {
+    "BaseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "Region": "China-Beijing",
+    "Model": "qwen3.7-plus",
+    "EnableThinking": false,
+    "ApiKeyEnvironmentVariable": "DASHSCOPE_API_KEY"
+  }
+}

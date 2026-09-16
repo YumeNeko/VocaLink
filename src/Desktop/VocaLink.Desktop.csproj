@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\VocaLink.Domain.csproj" />
+    <ProjectReference Include="..\Application\VocaLink.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\VocaLink.Infrastructure.csproj" />
+    <ProjectReference Include="..\Live2D\VocaLink.Live2D.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>VocaLink</AssemblyName>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\config\qwen.settings.json"
+             Link="config\qwen.settings.json"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\config\ace.settings.json"
+             Link="config\ace.settings.json"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\config\TTS.settings.json"
+             Link="config\TTS.settings.json"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\server.py"
+             Link="TTS\server.py"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\requirements.txt"
+             Link="TTS\requirements.txt"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\settings.json"
+             Link="TTS\settings.json"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\Models\lty-tts_gpt_model.ckpt"
+             Link="TTS\Models\lty-tts_gpt_model.ckpt"
+             Condition="Exists('..\TTS\Models\lty-tts_gpt_model.ckpt')"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\Models\lty-tts_sovits_model.pth"
+             Link="TTS\Models\lty-tts_sovits_model.pth"
+             Condition="Exists('..\TTS\Models\lty-tts_sovits_model.pth')"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\Models\corpus\processed\LuoTianyi_prompt_32k_mono.wav"
+             Link="TTS\Models\corpus\processed\LuoTianyi_prompt_32k_mono.wav"
+             Condition="Exists('..\TTS\Models\corpus\processed\LuoTianyi_prompt_32k_mono.wav')"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\Models\corpus\processed\LuoTianyi_prompt.txt"
+             Link="TTS\Models\corpus\processed\LuoTianyi_prompt.txt"
+             Condition="Exists('..\TTS\Models\corpus\processed\LuoTianyi_prompt.txt')"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\TTS\Models\pretrained\**\*"
+             Link="TTS\Models\pretrained\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\Live2D\Assets\**\*"
+             Link="Live2DAssets\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

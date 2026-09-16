@@ -1,0 +1,9 @@
+{
+  "host": "127.0.0.1",
+  "port": 60031,
+  "gpt_model": "Models/lty-tts_gpt_model.ckpt",
+  "sovits_model": "Models/lty-tts_sovits_model.pth",
+  "reference_audio": "Models/corpus/processed/LuoTianyi_prompt_32k_mono.wav",
+  "reference_text": "Models/corpus/processed/LuoTianyi_prompt.txt",
+  "models_dir": "Models/pretrained"
+}

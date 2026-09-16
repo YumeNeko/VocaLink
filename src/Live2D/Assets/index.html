@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>VocaLink Live2D</title>
+  <style>
+    html, body, canvas {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      touch-action: none;
+    }
+    canvas { display: block; }
+  </style>
+  <script src="./js/pixi.min.js"></script>
+  <script src="./js/live2dcubismcore.min.js"></script>
+  <script src="./js/cubism4.min.js"></script>
+</head>
+<body>
+  <canvas id="live2d"></canvas>
+  <script>
+    window.PIXI = PIXI;
+
+    const post = (message) => {
+      if (window.chrome?.webview) {
+        window.chrome.webview.postMessage(message);
+      }
+    };
+
+    let app;
+    let model;
+    let mouthOpen = 0;
+    let visualMode = "normal";
+
+    const resizeModel = () => {
+      if (!model) return;
+      const bounds = model.getLocalBounds();
+      const scale = Math.min(
+        (window.innerWidth - 2) / Math.max(bounds.width, 1),
+        (window.innerHeight - 1) / Math.max(bounds.height, 1)
+      );
+      model.scale.set(scale);
+      model.anchor.set(0.5, 0.5);
+      model.position.set(window.innerWidth / 2, window.innerHeight / 2);
+
+      // 将实际绘制边界贴住窗口底边，并保持水平居中，压缩不可见空白。
+      const rendered = model.getBounds();
+      model.position.x +=
+        window.innerWidth / 2 - (rendered.left + rendered.right) / 2;
+      model.position.y += window.innerHeight - rendered.bottom;
+    };
+
+    const initialize = async () => {
+      try {
+        const canvas = document.getElementById("live2d");
+        app = new PIXI.Application({
+          view: canvas,
+          resizeTo: window,
+          transparent: true,
+          backgroundAlpha: 0,
+          antialias: true,
+          autoDensity: true,
+          resolution: window.devicePixelRatio || 1
+        });
+
+        const Live2DModel = PIXI.live2d.Live2DModel;
+        model = await Live2DModel.from("./models/luo/model.model3.json", {
+          autoInteract: false
+        });
+        app.stage.addChild(model);
+        model.eventMode = "static";
+        model.interactive = true;
+        resizeModel();
+        model.expression("normal");
+
+        window.addEventListener("resize", resizeModel);
+        window.addEventListener("pointerleave", () => {
+          model.focus(window.innerWidth / 2, window.innerHeight / 2);
+        });
+
+        const playTouchAction = (clientX, clientY) => {
+          const hits = model.hitTest(clientX, clientY) || [];
+          const area = hits[0] || "body";
+          const group = `Tap${area}`;
+          try {
+            model.motion(group, 0);
+          } catch {
+            // 部分点击区域没有预设动作，仍然上报点击事件。
+          }
+          post({ type: "characterClicked", area });
+        };
+
+        const applyVisualState = () => {
+          const coreModel = model?.internalModel?.coreModel;
+          if (coreModel) {
+            coreModel.setParameterValueById("ParamMouthOpenY", mouthOpen);
+            const isSinging = visualMode === "singing";
+            const isMusic = isSinging || visualMode === "playback";
+            coreModel.setParameterValueById("Param54", isSinging ? 30 : 0);
+            coreModel.setParameterValueById("Param55", isSinging ? 30 : -30);
+            coreModel.setParameterValueById("Param14", isMusic ? 30 : 0);
+            const showNotes = visualMode !== "normal";
+            coreModel.setParameterValueById("Param90", showNotes ? 0 : -30);
+            coreModel.setParameterValueById("Param91", showNotes ? 0 : -30);
+            coreModel.setParameterValueById("Param92", showNotes ? 0 : -30);
+            coreModel.setParameterValueById("Param93", showNotes ? 0 : -30);
+          }
+        };
+
+        // 必须在动作、表情和物理计算之后覆盖可见性参数，否则点击动作会重新带出音符。
+        model.internalModel.on("beforeModelUpdate", applyVisualState);
+
+        window.vocalink = {
+          setExpression: name => model?.expression(name || "normal"),
+          setMouth: value => { mouthOpen = Math.max(0, Math.min(1, Number(value) || 0)); },
+          playMotion: group => model?.motion(group, 0),
+          setVisualMode: mode => {
+            visualMode = mode === "chat" || mode === "singing" || mode === "playback"
+              ? mode
+              : "normal";
+            model?.expression(visualMode === "singing" ? "sing" : "normal");
+          },
+          focusAt: (x, y) => model?.focus(Number(x) || 0, Number(y) || 0),
+          interactAt: (x, y) => playTouchAction(Number(x) || 0, Number(y) || 0),
+          resetPose: (expression, mode) => {
+            try {
+              model?.internalModel?.motionManager?.stopAllMotions();
+            } catch {
+              // 不同运行库版本的动作管理器接口可能不同。
+            }
+            mouthOpen = 0;
+            visualMode = mode === "chat" || mode === "singing" || mode === "playback"
+              ? mode
+              : "normal";
+            model?.expression(expression || "normal");
+            model?.focus(window.innerWidth / 2, window.innerHeight / 2);
+          }
+        };
+
+        post({ type: "modelLoaded" });
+      } catch (error) {
+        post({ type: "modelError", message: String(error?.message || error) });
+      }
+    };
+
+    window.addEventListener("error", event => {
+      post({ type: "modelError", message: event.message || "JavaScript error" });
+    });
+
+    initialize();
+  </script>
+</body>
+</html>
