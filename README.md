@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-VocaLink 是一款面向 Windows 的情感感知虚拟歌手桌面陪伴系统，整合 Live2D 桌面角色、LLM、本地 GPT-SoVITS 语音合成、本地音乐播放和 ACE Studio 自动化，为用户提供对话、语音生成及ACE Studio工程自动化准备的一体化交互体验。
+VocaLink 是一款面向 Windows 的虚拟歌手桌面宠物Agent。项目整合 Live2D 桌面角色、大语言模型、本地语音合成、本地音乐播放和ACE Studio MCP接口，为用户提供对话、语音生成及ACE Studio工程自动化准备的一体化交互体验。
 
 ## 技术栈
 
@@ -41,7 +41,7 @@ py -3.10 -m venv .venv
 [Environment]::SetEnvironmentVariable("DASHSCOPE_API_KEY", "api-key", "User")
 ```
 
-只需替换 `api-key`，不要修改 `DASHSCOPE_API_KEY` 和 `User`。设置完成后，请重新打开终端或重新登录 Windows。
+只需替换 `api-key`，不要修改 `DASHSCOPE_API_KEY` 和 `User`。
 
 4. 双击 `VocaLink.exe` 启动程序。
 
